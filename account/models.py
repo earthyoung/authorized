@@ -37,6 +37,27 @@ class Ownership(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
+class OwnershipRequest(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(
+        "User",
+        db_column="user_id",
+        on_delete=models.SET_NULL,
+        related_name="ownership_request_set",
+        null=True,
+        blank=True,
+    )
+    house = models.ForeignKey(
+        "House",
+        db_column="house_id",
+        on_delete=models.SET_NULL,
+        related_name="ownership_request_set",
+        null=True,
+        blank=True,
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 # soft delete model
 class Authority(models.Model):
     id = models.AutoField(primary_key=True)
@@ -59,6 +80,26 @@ class Authority(models.Model):
     allowed_at = models.DateTimeField(null=True, blank=True)
     disabled_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class AuthorityRequest(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(
+        "User",
+        db_column="user_id",
+        on_delete=models.SET_NULL,
+        related_name="authority_request_set",
+        null=True,
+        blank=True,
+    )
+    house = models.ForeignKey(
+        "House",
+        db_column="house_id",
+        on_delete=models.SET_NULL,
+        related_name="authority_request_set",
+        null=True,
+        blank=True,
+    )
 
 
 # soft delete model
