@@ -100,6 +100,7 @@ class AuthorityRequest(models.Model):
         null=True,
         blank=True,
     )
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
 
 # soft delete model
