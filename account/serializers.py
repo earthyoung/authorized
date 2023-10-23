@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from authorized.account.models import Authority, Ownership, Record, User, House
+from account.models import Authority, Ownership, Record, User, House
 
 
 class UserSerializer(serializers.ModelSerializer):
