@@ -8,4 +8,6 @@ urlpatterns = [
     path("ownership", views.OwnershipViewSet.as_view({"get": "list"})),
     path("authority", views.AuthorityViewSet.as_view({"get": "list"})),
     path("record", views.RecordViewSet.as_view({"get": "list"})),
+    path("ownership/request", views.OwnershipRequestViewSet.as_view({"get": "list"})),
+    path("authority/request", views.AuthorityRequestViewSet.as_view({"get": "list"})),
 ]

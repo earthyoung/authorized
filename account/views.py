@@ -52,3 +52,19 @@ class RecordViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Record.objects.all()
+    
+
+class OwnershipRequestViewSet(viewsets.ModelViewSet):
+    serializer_class = OwnershipRequestSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return OwnershipRequest.objects.all()
+    
+
+class AuthorityRequestViewSet(viewsets.ModelViewSet):
+    serializer_class = AuthorityRequestSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return AuthorityRequest.objects.all()

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from account.models import Authority, Ownership, Record, User, House
+from account.models import *
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -20,27 +20,46 @@ class HouseSerializer(serializers.ModelSerializer):
 
 
 class OwnershipSerializer(serializers.ModelSerializer):
-    user = serializers.IntegerField()
-    house = serializers.IntegerField()
+    user = UserSerializer()
+    house = HouseSerializer()
 
     class Meta:
         model = Ownership
-        fields = "__all__"
+        fields = ["id", "user", "house", "created_at"]
 
 
 class AuthoritySerializer(serializers.ModelSerializer):
-    user = serializers.IntegerField()
-    house = serializers.IntegerField()
+    user = UserSerializer()
+    house = HouseSerializer()
 
     class Meta:
         model = Authority
-        fields = "__all__"
+        fields = ["id", "user", "house", "allowed_at", "disabled_at", "created_at"]
 
 
 class RecordSerializer(serializers.ModelSerializer):
-    user = serializers.IntegerField()
-    house = serializers.IntegerField()
+    user = UserSerializer()
+    house = HouseSerializer()
 
     class Meta:
         model = Record
-        fields = "__all__"
+        fields = ["id", "user", "house", "created_at"]
+
+
+class OwnershipRequestSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    house = HouseSerializer()
+
+    class Meta:
+        model = OwnershipRequest
+        fields = ["id", "user", "house", "created_at"]
+
+
+class AuthorityRequestSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    house = HouseSerializer()
+
+    class Meta:
+        model = AuthorityRequest
+        fields = ["id", "user", "house", "created_at"]
+
