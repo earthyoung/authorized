@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets, views
+from rest_framework import viewsets, views, generics, mixins
 from rest_framework.permissions import *
 from django.http.response import *
 
@@ -9,17 +9,26 @@ from account.models import *
 
 # Create your views here.
 class HealthViewSet(views.APIView):
-
     def get(self, request):
         return JsonResponse({"status": True})
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(
+    generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.ListModelMixin
+):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
-    
+
     def get_queryset(self):
         return User.objects.all()
+
+
+class UserCreateViewSet(generics.CreateAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]
+
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
 
 
 class HouseViewSet(viewsets.ModelViewSet):
@@ -52,7 +61,7 @@ class RecordViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Record.objects.all()
-    
+
 
 class OwnershipRequestViewSet(viewsets.ModelViewSet):
     serializer_class = OwnershipRequestSerializer
@@ -60,7 +69,7 @@ class OwnershipRequestViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return OwnershipRequest.objects.all()
-    
+
 
 class AuthorityRequestViewSet(viewsets.ModelViewSet):
     serializer_class = AuthorityRequestSerializer

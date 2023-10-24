@@ -3,7 +3,8 @@ from . import views
 
 urlpatterns = [
     path("health", views.HealthViewSet.as_view()),
-    path("user", views.UserViewSet.as_view({"get": "list"})),
+    path("user", views.UserCreateViewSet.as_view()),
+    path("user", views.UserViewSet.as_view()),
     path("house", views.HouseViewSet.as_view({"get": "list"})),
     path("ownership", views.OwnershipViewSet.as_view({"get": "list"})),
     path("authority", views.AuthorityViewSet.as_view({"get": "list"})),
