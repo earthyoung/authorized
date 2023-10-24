@@ -13,7 +13,15 @@ class TimeStamp(models.Model):
 
 class User(TimeStamp):
     id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=30, null=True)
+    password = models.CharField(max_length=200, null=True)
+    first_name = models.CharField(max_length=30, null=True)
+    last_name = models.CharField(max_length=30, null=True)
     on_trial = models.BooleanField(default=False)
+
+    @property
+    def name(self):
+        return self.last_name + self.first_name
 
 
 class House(TimeStamp):
