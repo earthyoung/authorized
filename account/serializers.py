@@ -8,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ["id", "username", "first_name", "last_name", "on_trial"]
 
 
 class HouseSerializer(serializers.ModelSerializer):
@@ -62,4 +62,3 @@ class AuthorityRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = AuthorityRequest
         fields = ["id", "user", "house", "created_at"]
-
