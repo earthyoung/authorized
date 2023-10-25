@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
@@ -11,17 +12,11 @@ class TimeStamp(models.Model):
         abstract = True
 
 
-class User(TimeStamp):
-    id = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=30, null=True)
-    password = models.CharField(max_length=200, null=True)
-    first_name = models.CharField(max_length=30, null=True)
-    last_name = models.CharField(max_length=30, null=True)
-    on_trial = models.BooleanField(default=False)
+class User(AbstractUser):
+    pass
 
-    @property
-    def name(self):
-        return self.last_name + self.first_name
+    class Meta:
+        db_table = "account_user"
 
 
 class House(TimeStamp):
@@ -64,6 +59,9 @@ class OwnershipRequest(models.Model):
         blank=True,
     )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "account_ownership_request"
 
 
 # soft delete model
@@ -109,6 +107,9 @@ class AuthorityRequest(models.Model):
         blank=True,
     )
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    class Meta:
+        db_table = "account_authority_request"
 
 
 # soft delete model
