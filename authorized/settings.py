@@ -31,7 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-AUTH_USER_MODEL = "account.User"
+AUTH_USER_MODEL = "accounts.User"
 ACCOUNT_USER_MODEL_USERNAME_FIELD = "username"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
@@ -47,12 +47,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "account",
+    "account.apps.AccountConfig",
     "rest_framework",
     "rest_framework.authtoken",
     "rest_framework_simplejwt",
     "dj_rest_auth",
+    "dj_rest_auth.registration",
     "allauth",
+    "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.kakao",
     "allauth.socialaccount.providers.google",
@@ -67,6 +69,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "authorized.urls"
