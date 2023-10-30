@@ -53,15 +53,13 @@ INSTALLED_APPS = [
     "account.apps.AccountConfig",
     "rest_framework",
     "rest_framework.authtoken",
-    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
     "dj_rest_auth",
     "dj_rest_auth.registration",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    "allauth.socialaccount.providers.kakao",
     "allauth.socialaccount.providers.google",
-    "allauth.socialaccount.providers.github",
 ]
 
 MIDDLEWARE = [

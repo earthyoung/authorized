@@ -28,9 +28,8 @@ class GoogleLoginView(views.APIView):
     def get(self, request):
         scope = "https://www.googleapis.com/auth/userinfo.email"
         client_id = os.environ.get("GOOGLE_CLIENT_ID")
-        return redirect(
-            f"https://accounts.google.com/o/oauth2/v2/auth?client_id={client_id}&response_type=code&redirect_uri={GOOGLE_CALLBACK_URI}&scope={scope}"
-        )
+        url = f"https://accounts.google.com/o/oauth2/v2/auth?client_id={client_id}&response_type=code&redirect_uri={GOOGLE_CALLBACK_URI}&scope={scope}"
+        return redirect(url)
 
 
 class GoogleCallbackView(views.APIView):
@@ -41,9 +40,8 @@ class GoogleCallbackView(views.APIView):
         state = os.environ.get("STATE")
 
         # get access token
-        token_req = requests.post(
-            f"https://oauth2.googleapis.com/token?client_id={client_id}&client_secret={client_secret}&code={code}&grant_type=authorization_code&redirect_uri={GOOGLE_CALLBACK_URI}&state={state}"
-        )
+        url = f"https://oauth2.googleapis.com/token?client_id={client_id}&client_secret={client_secret}&code={code}&grant_type=authorization_code&redirect_uri={GOOGLE_CALLBACK_URI}&state={state}"
+        token_req = requests.post(url)
         token_req_json = token_req.json()
         error = token_req_json.get("error")
         if error is not None:
@@ -63,7 +61,6 @@ class GoogleCallbackView(views.APIView):
 
         # signup or signin
         try:
-            user = User.objects.get(email=email)
             user = User.objects.get(email=email)
 
             # check if the user is google user
