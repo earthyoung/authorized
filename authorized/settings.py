@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "account.apps.AccountConfig",
     "rest_framework",
     "rest_framework.authtoken",
+    # previous
     "rest_framework_simplejwt.token_blacklist",
     "dj_rest_auth",
     "dj_rest_auth.registration",
@@ -60,6 +61,8 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
+    # now
+    "social.apps.django_app.default",
 ]
 
 MIDDLEWARE = [
@@ -74,6 +77,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "authorized.urls"
+
+TEMPLATE_DIRS = (os.path.join(BASE_DIR, "templates"),)
 
 TEMPLATES = [
     {
@@ -90,6 +95,18 @@ TEMPLATES = [
         },
     },
 ]
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    "social.apps.django_app.context_processors.backends",
+    "social.apps.django_app.context_processors.login_redirect",
+)
 
 WSGI_APPLICATION = "authorized.wsgi.application"
 
@@ -154,7 +171,8 @@ AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     "django.contrib.auth.backends.ModelBackend",
     # `allauth` specific authentication methods, such as login by email
-    "allauth.account.auth_backends.AuthenticationBackend",
+    # "allauth.account.auth_backends.AuthenticationBackend",
+    "social.backends.google.GoogleOAuth2",
 ]
 
 # Provider specific settings
