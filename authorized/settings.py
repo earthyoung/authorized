@@ -32,8 +32,6 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-SITE_ID = 1
-
 ALLOWED_HOSTS = ["*"]
 
 AUTH_USER_MODEL = "accounts.User"
@@ -55,18 +53,6 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "account",
     "rest_framework",
-    # "rest_framework.authtoken",
-    # previous
-    # "rest_framework_simplejwt.token_blacklist",
-    # "dj_rest_auth",
-    # "dj_rest_auth.registration",
-    # "allauth",
-    # "allauth.account",
-    # "allauth.socialaccount",
-    # "allauth.socialaccount.providers.google",
-    # "django.contrib.contenttypes.models.ContentType",
-    # now
-    # "social.apps.django_app.default",
 ]
 
 MIDDLEWARE = [
@@ -77,7 +63,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # "allauth.account.middleware.AccountMiddleware",
     "authorized.middleware.SimpleMiddleWare",
 ]
 
@@ -128,10 +113,6 @@ DATABASES = {
         "HOST": os.environ.get("DB_HOST"),
         "PORT": os.environ.get("DB_PORT"),
     }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
 }
 
 
@@ -139,20 +120,9 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
-        # "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
     ),
 }
 
-REST_USE_JWT = True
-
-from datetime import timedelta
-
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
-    "ROTATE_REFRESH_TOKENS": False,
-    "BLACKLIST_AFTER_ROTATION": True,
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -173,33 +143,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
     "django.contrib.auth.backends.ModelBackend",
-    # `allauth` specific authentication methods, such as login by email
-    # "allauth.account.auth_backends.AuthenticationBackend",
-    "social.backends.google.GoogleOAuth2",
 ]
-
-# Provider specific settings
-# SOCIALACCOUNT_PROVIDERS = {
-#     "google": {
-#         # For each OAuth based provider, either add a ``SocialApp``
-#         # (``socialaccount`` app) containing the required client
-#         # credentials, or list them here:
-#         "APP": {
-#             "client_id": os.environ.get("GOOGLE_CLIENT_ID"),
-#             "secret": os.environ.get("GOOGLE_CLIENT_SECRET"),
-#             "key": "",
-#         },
-#         "SCOPE": [
-#             "profile",
-#             "email",
-#         ],
-#         "AUTH_PARAMS": {
-#             "access_type": "online",
-#         },
-#     }
-# }
 
 
 # Internationalization
